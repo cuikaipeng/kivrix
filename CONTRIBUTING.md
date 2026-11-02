@@ -35,6 +35,10 @@ to submit it. Sign off commits with `git commit -s` to certify the
 
 ## Development
 
+`dev` is the default development branch. Base changes on `dev` and target it
+in feature pull requests. Prepare releases by merging `dev` into `main`, then
+tagging the release commit as described in [Releasing](docs/RELEASING.md).
+
 ```sh
 go tool mygo dev
 make test
@@ -87,11 +91,11 @@ a replacement for CPU/memory profiling under large workloads.
 `make` saves failed UI-flow screenshots and the native screenshot under
 `build/test-artifacts/`; override `KIVRIX_TEST_ARTIFACTS` to change the directory.
 Do not use golden-image comparisons for platform-dependent font rendering.
-CI runs coverage, real Redis and race checks in one Linux job on PRs and main;
-release/manual packaging also runs the native smoke test on its existing macOS
-runner. Coverage reports and screenshots are retained for seven days. Add
-regression scenarios for observable behavior, rather than asserting internal
-implementation details or targeting 100% coverage.
+CI runs coverage, real Redis and race checks in one Linux job on PRs and on
+pushes to `dev` or `main`; release/manual packaging also runs the native smoke
+test on its existing macOS runner. Coverage reports and screenshots are
+retained for seven days. Add regression scenarios for observable behavior,
+rather than asserting internal implementation details or targeting 100% coverage.
 
 Keep MyGo UI lifetimes in mind: create elements in the current view build,
 publish asynchronous results with `App.update`, and use `ui.Tester` with a

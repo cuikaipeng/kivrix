@@ -1,5 +1,29 @@
 # Releasing
 
+## Branch workflow
+
+`dev` is the default development branch; `main` is the release branch.
+Feature pull requests target `dev`. Pushes to either branch run checks.
+Merging into `main` does not package or publish a release by itself.
+
+1. Update both version fields on `dev`, commit and push the release changes.
+2. Merge `dev` into `main` after the checks pass.
+3. Create and push the matching `vX.Y.Z` tag on the merged `main` commit.
+   The tag triggers checks, packaging and creation of a draft release.
+4. Review the assets and notes, then publish the draft on GitHub. Published
+   stable releases become visible to the in-app updater.
+
+For example, after bumping both version fields to `0.1.1` and merging:
+
+```sh
+git switch main
+git pull --ff-only origin main
+python3 scripts/release.py check --tag v0.1.1
+git tag -a v0.1.1 -m "Kivrix v0.1.1"
+git push origin v0.1.1
+git switch dev
+```
+
 ## Version and checks
 
 Keep `version` in `mygo.json` and `appVersion` in `internal/app/update.go`
@@ -202,7 +226,7 @@ unavailable. No OS signing certificate is needed for this update mechanism.
 
 | Trigger | Checks | Installers | Draft release |
 |---|---|---|---|
-| PR / push to `main` | Version, release-script tests, unit/UI tests, Go/MyGo vet, five desktop builds, real Redis integration and race tests | No | No |
+| PR / push to `dev` or `main` | Version, release-script tests, unit/UI tests, Go/MyGo vet, five desktop builds, real Redis integration and race tests | No | No |
 | Push `vX.Y.Z` matching the source | Same checks | macOS ad-hoc, Windows unsigned, Linux packages; signed update archives | Yes |
 | Manual run | Same checks | Same packages; update-signing secret required | No |
 
