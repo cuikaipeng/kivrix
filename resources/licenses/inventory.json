@@ -1,0 +1,450 @@
+{
+  "modules": [
+    {
+      "path": "github.com/alicebob/miniredis/v2",
+      "version": "v2.40.0",
+      "sources": [
+        "LICENSE",
+        "fpconv/LICENSE.txt",
+        "geohash/LICENSE",
+        "gopher-json/LICENSE",
+        "hyperloglog/LICENSE",
+        "metro/LICENSE"
+      ],
+      "file": "modules/github.com_alicebob_miniredis_v2_v2.40.0.txt"
+    },
+    {
+      "path": "github.com/andybalholm/brotli",
+      "version": "v1.2.6",
+      "sources": [
+        "LICENSE",
+        "flate/LICENSE"
+      ],
+      "file": "modules/github.com_andybalholm_brotli_v1.2.6.txt"
+    },
+    {
+      "path": "github.com/bsm/ginkgo/v2",
+      "version": "v2.12.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_bsm_ginkgo_v2_v2.12.0.txt"
+    },
+    {
+      "path": "github.com/bsm/gomega",
+      "version": "v1.27.10",
+      "sources": [
+        "LICENSE",
+        "matchers/support/goraph/MIT.LICENSE"
+      ],
+      "file": "modules/github.com_bsm_gomega_v1.27.10.txt"
+    },
+    {
+      "path": "github.com/cespare/xxhash/v2",
+      "version": "v2.3.0",
+      "sources": [
+        "LICENSE.txt"
+      ],
+      "file": "modules/github.com_cespare_xxhash_v2_v2.3.0.txt"
+    },
+    {
+      "path": "github.com/chzyer/logex",
+      "version": "v1.1.10",
+      "sources": [],
+      "file": "",
+      "reason": "No license in this revision; not used by the app, its tests or the build tool. Use is blocked."
+    },
+    {
+      "path": "github.com/chzyer/readline",
+      "version": "v0.0.0-20180603132655-2972be24d48e",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_chzyer_readline_v0.0.0-20180603132655-2972be24d48e.txt"
+    },
+    {
+      "path": "github.com/chzyer/test",
+      "version": "v0.0.0-20180213035817-a1ea475d72b1",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_chzyer_test_v0.0.0-20180213035817-a1ea475d72b1.txt"
+    },
+    {
+      "path": "github.com/davecgh/go-spew",
+      "version": "v1.1.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_davecgh_go-spew_v1.1.0.txt"
+    },
+    {
+      "path": "github.com/ebitengine/purego",
+      "version": "v0.11.1",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_ebitengine_purego_v0.11.1.txt"
+    },
+    {
+      "path": "github.com/egoist/mygo",
+      "version": "v0.6.2",
+      "sources": [
+        "LICENSE",
+        "internal/shader/LICENSE",
+        "packages/cli/LICENSE",
+        "packages/cli/npm/darwin-arm64/LICENSE",
+        "packages/cli/npm/darwin-x64/LICENSE",
+        "packages/cli/npm/linux-arm64/LICENSE",
+        "packages/cli/npm/linux-x64/LICENSE",
+        "packages/cli/npm/win32-arm64/LICENSE",
+        "packages/cli/npm/win32-x64/LICENSE",
+        "packages/runtime/LICENSE",
+        "plugins/fetch/LICENSE",
+        "plugins/loading/NOTICE.md",
+        "plugins/sqlite/LICENSE",
+        "plugins/watch/LICENSE",
+        "plugins/websocket/LICENSE"
+      ],
+      "file": "modules/github.com_egoist_mygo_v0.6.2.txt"
+    },
+    {
+      "path": "github.com/elliotchance/phpserialize",
+      "version": "v1.4.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_elliotchance_phpserialize_v1.4.0.txt"
+    },
+    {
+      "path": "github.com/go-text/typesetting",
+      "version": "v0.3.5",
+      "sources": [
+        "LICENSE",
+        "harfbuzz/LICENSE"
+      ],
+      "file": "modules/github.com_go-text_typesetting_v0.3.5.txt"
+    },
+    {
+      "path": "github.com/go-text/typesetting-utils",
+      "version": "v0.0.0-20260419141703-4ffe8874dabc",
+      "sources": [
+        "LICENSE",
+        "generators/unicodedata/data/ms-use/COPYING",
+        "harfbuzz/harfbuzz_reference/aots/COPYING",
+        "harfbuzz/harfbuzz_reference/in-house/COPYING",
+        "harfbuzz/harfbuzz_reference/text-rendering-tests/COPYING"
+      ],
+      "file": "modules/github.com_go-text_typesetting-utils_v0.0.0-20260419141703-4ffe8874dabc.txt"
+    },
+    {
+      "path": "github.com/hajimehoshi/go-mp3",
+      "version": "v0.3.4",
+      "sources": [
+        "LICENSE",
+        "example/license.md"
+      ],
+      "file": "modules/github.com_hajimehoshi_go-mp3_v0.3.4.txt"
+    },
+    {
+      "path": "github.com/jfreymuth/oggvorbis",
+      "version": "v1.0.5",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_jfreymuth_oggvorbis_v1.0.5.txt"
+    },
+    {
+      "path": "github.com/jfreymuth/vorbis",
+      "version": "v1.0.2",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_jfreymuth_vorbis_v1.0.2.txt"
+    },
+    {
+      "path": "github.com/klauspost/compress",
+      "version": "v1.20.3",
+      "sources": [
+        "LICENSE",
+        "gzhttp/LICENSE",
+        "internal/lz4ref/LICENSE",
+        "internal/snapref/LICENSE",
+        "s2/LICENSE",
+        "s2/cmd/internal/filepathx/LICENSE",
+        "s2/cmd/internal/readahead/LICENSE",
+        "snappy/LICENSE",
+        "snappy/xerial/LICENSE",
+        "zstd/internal/xxhash/LICENSE.txt"
+      ],
+      "file": "modules/github.com_klauspost_compress_v1.20.3.txt"
+    },
+    {
+      "path": "github.com/klauspost/cpuid/v2",
+      "version": "v2.4.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_klauspost_cpuid_v2_v2.4.0.txt"
+    },
+    {
+      "path": "github.com/nlpodyssey/gopickle",
+      "version": "v0.3.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_nlpodyssey_gopickle_v0.3.0.txt"
+    },
+    {
+      "path": "github.com/pierrec/lz4/v4",
+      "version": "v4.1.33",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_pierrec_lz4_v4_v4.1.33.txt"
+    },
+    {
+      "path": "github.com/pmezard/go-difflib",
+      "version": "v1.0.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_pmezard_go-difflib_v1.0.0.txt"
+    },
+    {
+      "path": "github.com/redis/go-redis/v9",
+      "version": "v9.23.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_redis_go-redis_v9_v9.23.0.txt"
+    },
+    {
+      "path": "github.com/stretchr/testify",
+      "version": "v1.12.1",
+      "sources": [
+        "LICENSE",
+        "internal/difflib/LICENSE",
+        "internal/spew/LICENSE"
+      ],
+      "file": "modules/github.com_stretchr_testify_v1.12.1.txt"
+    },
+    {
+      "path": "github.com/vmihailenco/msgpack/v5",
+      "version": "v5.4.1",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_vmihailenco_msgpack_v5_v5.4.1.txt"
+    },
+    {
+      "path": "github.com/vmihailenco/tagparser/v2",
+      "version": "v2.0.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_vmihailenco_tagparser_v2_v2.0.0.txt"
+    },
+    {
+      "path": "github.com/xyproto/randomstring",
+      "version": "v1.0.5",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_xyproto_randomstring_v1.0.5.txt"
+    },
+    {
+      "path": "github.com/yuin/gopher-lua",
+      "version": "v1.1.1",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_yuin_gopher-lua_v1.1.1.txt"
+    },
+    {
+      "path": "github.com/zeebo/xxh3",
+      "version": "v1.1.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/github.com_zeebo_xxh3_v1.1.0.txt"
+    },
+    {
+      "path": "go.uber.org/atomic",
+      "version": "v1.12.0",
+      "sources": [
+        "LICENSE.txt"
+      ],
+      "file": "modules/go.uber.org_atomic_v1.12.0.txt"
+    },
+    {
+      "path": "go.yaml.in/yaml/v3",
+      "version": "v3.0.5",
+      "sources": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "file": "modules/go.yaml.in_yaml_v3_v3.0.5.txt"
+    },
+    {
+      "path": "golang.org/x/crypto",
+      "version": "v0.58.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/golang.org_x_crypto_v0.58.0.txt"
+    },
+    {
+      "path": "golang.org/x/image",
+      "version": "v0.46.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/golang.org_x_image_v0.46.0.txt"
+    },
+    {
+      "path": "golang.org/x/mod",
+      "version": "v0.41.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/golang.org_x_mod_v0.41.0.txt"
+    },
+    {
+      "path": "golang.org/x/net",
+      "version": "v0.60.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/golang.org_x_net_v0.60.0.txt"
+    },
+    {
+      "path": "golang.org/x/sync",
+      "version": "v0.24.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/golang.org_x_sync_v0.24.0.txt"
+    },
+    {
+      "path": "golang.org/x/sys",
+      "version": "v0.49.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/golang.org_x_sys_v0.49.0.txt"
+    },
+    {
+      "path": "golang.org/x/term",
+      "version": "v0.47.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/golang.org_x_term_v0.47.0.txt"
+    },
+    {
+      "path": "golang.org/x/text",
+      "version": "v0.43.0",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/golang.org_x_text_v0.43.0.txt"
+    },
+    {
+      "path": "golang.org/x/tools",
+      "version": "v0.51.0",
+      "sources": [
+        "LICENSE",
+        "copyright/copyright.go",
+        "copyright/copyright_test.go"
+      ],
+      "file": "modules/golang.org_x_tools_v0.51.0.txt"
+    },
+    {
+      "path": "gopkg.in/check.v1",
+      "version": "v0.0.0-20161208181325-20d25e280405",
+      "sources": [
+        "LICENSE"
+      ],
+      "file": "modules/gopkg.in_check.v1_v0.0.0-20161208181325-20d25e280405.txt"
+    },
+    {
+      "path": "gopkg.in/yaml.v3",
+      "version": "v3.0.1",
+      "sources": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "file": "modules/gopkg.in_yaml.v3_v3.0.1.txt"
+    }
+  ],
+  "files": {
+    "MODULES.md": "7ad3e4a67d0e4e09428e786c8cf0c23f8d09ad4a1cb36de653839341326d689b",
+    "README.md": "b174594a576b21b98bb2e7e491a695d2ddfb5da6ed3db9c8cccd3bf2a46d5403",
+    "brotli.txt": "3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94",
+    "go-redis-components.txt": "e1027fd0e914514ad8ec19e8dc32500044e5d7cdb462fb2223a1375fc1666632",
+    "go-redis.txt": "a3a7dff87da3927db65cb4c87b1cfbc96ca2755704461a485d457be7ae300a86",
+    "go-text-typesetting.txt": "6b1bf94c77d7faa0ce94f8745595bfaf4c404f8b3873f5c2ce55ca15f8e44eca",
+    "go.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "gopher-lua.txt": "260ffdb7a4ba43069407382e611dab0797bcdabad46deb3d25b36af7f8204f66",
+    "gopickle.txt": "e692c5162513ddb259d92736a7c86f50a817e565922078c68c4ca77ce668f3c5",
+    "kero.txt": "864055f1a1316e626303804974238ffd4fb1732e500f1059e69a841b9cad0ab4",
+    "klauspost-compress.txt": "0d9e582ee4bff57bf1189c9e514e6da7ce277f9cd3bc2d488b22fbb39a6d87cf",
+    "lucide.txt": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
+    "lz4.txt": "6a358d2540ca14048f02d366f23787c0a480157e58f058113f0e27168dd4e447",
+    "miniredis.txt": "9964909ed0def8840643886cdc465b063b5978827bac01b886b15a47488064d4",
+    "modules/github.com_alicebob_miniredis_v2_v2.40.0.txt": "04b73b07d68352313cf86f8350b8feff5901cffb2715bda90ad60e58fa8fee60",
+    "modules/github.com_andybalholm_brotli_v1.2.6.txt": "ab28eea8b103a61a6dd1d524bb01dc5dbcb615f978bffb45391bede9a0f3be3e",
+    "modules/github.com_bsm_ginkgo_v2_v2.12.0.txt": "1f585913d1606641b07382314db8c5cb4624e5faa9f6e5f980f4a9dd34ba8e92",
+    "modules/github.com_bsm_gomega_v1.27.10.txt": "e594181d580f8e177a8574bfa84b096f2d4ccd4c2f12063dcde80a27208c4a5d",
+    "modules/github.com_cespare_xxhash_v2_v2.3.0.txt": "295c4ae33503b94ed82dede46553eefebe5dba7c39656a401807f9fec8a62ba6",
+    "modules/github.com_chzyer_readline_v0.0.0-20180603132655-2972be24d48e.txt": "88c44a9ea5959d6cbd097aa4e836e2bcbc2ac95b5c549bd3813e9f4959684e7a",
+    "modules/github.com_chzyer_test_v0.0.0-20180213035817-a1ea475d72b1.txt": "74a868f1f8f07c47e4399178b51fddd494eac8eecd1a7d800e0a90a5b7b19c64",
+    "modules/github.com_davecgh_go-spew_v1.1.0.txt": "48475161562127eab5bc1e93e24707a21b1bca16b839da4397a113d59c35dd3f",
+    "modules/github.com_ebitengine_purego_v0.11.1.txt": "ebea796a03e31d01242a75a3a96c44bee85123eb54c82119cc3fb2bc564dd17b",
+    "modules/github.com_egoist_mygo_v0.6.2.txt": "52c1b40957304eaa7b3c63364ce014f390b1daebc3dd7de8f095507f03d17081",
+    "modules/github.com_elliotchance_phpserialize_v1.4.0.txt": "0899b2f90c8f9d2b120d793126655e1d3f70134f8e4e58d5ea2900f626d30fc1",
+    "modules/github.com_go-text_typesetting-utils_v0.0.0-20260419141703-4ffe8874dabc.txt": "025eb85f5ff7564f0ba1b8d56645903f7fd847f55d92ee20f0af82bfe7cb8995",
+    "modules/github.com_go-text_typesetting_v0.3.5.txt": "c06e124cb53f694df15db416a3eaca8c4e2682e3d84fc49c21bc0dd33c61918a",
+    "modules/github.com_hajimehoshi_go-mp3_v0.3.4.txt": "e6e5bc0560027804f7ee2ab53add57c7c4a1e4abfad1196d8bb2e61cc4c10dc6",
+    "modules/github.com_jfreymuth_oggvorbis_v1.0.5.txt": "ca3c0f2c088a7dba85dd7bb64d945fcd15f90f2916b9d354e0d0e18297f16faa",
+    "modules/github.com_jfreymuth_vorbis_v1.0.2.txt": "ca3c0f2c088a7dba85dd7bb64d945fcd15f90f2916b9d354e0d0e18297f16faa",
+    "modules/github.com_klauspost_compress_v1.20.3.txt": "e302f5d3637d270bc7fa7a51b837d6e8220684ef6ea2196391c6a927ead20c97",
+    "modules/github.com_klauspost_cpuid_v2_v2.4.0.txt": "fd5a66b64670488321a44cbdd41a4e0e7cafc14a085f5784b4b1f7e6a97b8e22",
+    "modules/github.com_nlpodyssey_gopickle_v0.3.0.txt": "68722c0f56828f8f60828f8ec1ea9c26aa9769df4c004a05a94f7d249f680444",
+    "modules/github.com_pierrec_lz4_v4_v4.1.33.txt": "8ddd1f55b1b10d4f4532ffb98be53ff84bb6b46a888e878219c587d970667be9",
+    "modules/github.com_pmezard_go-difflib_v1.0.0.txt": "b6562df227779775a7507932870df26651a7f94eea2ef64d4c1ae598027b3e5e",
+    "modules/github.com_redis_go-redis_v9_v9.23.0.txt": "e7dbbd2558de774c558573558a1229a137b6783cb7b694141ad036093396588e",
+    "modules/github.com_stretchr_testify_v1.12.1.txt": "c6d79105ec716046f12917351b5690171d0a131f4e626ae3cab48a66387f0690",
+    "modules/github.com_vmihailenco_msgpack_v5_v5.4.1.txt": "8e9b8d2e2e8f5c9a8a227973ca1f859eeb650f929d3cb07b9dbdf4411096c66b",
+    "modules/github.com_vmihailenco_tagparser_v2_v2.0.0.txt": "527c60c6cb7727c9b73e7a4b7114c8ce19bd10e1346c4a1d223f3b37d7338c96",
+    "modules/github.com_xyproto_randomstring_v1.0.5.txt": "e50d976cf4a70f56ad81c4b1ad5d2cfd6d9f6dc8fef8e1df1f62deee89a52eef",
+    "modules/github.com_yuin_gopher-lua_v1.1.1.txt": "afd9b8480b0be03819600127a54a12f7cff7827d64ab3aedd1d6ab608e226033",
+    "modules/github.com_zeebo_xxh3_v1.1.0.txt": "f4e2d1064f59f5dfe2263e1e38618054d6bdc9be24ee8791f11bb29a7b7ca333",
+    "modules/go.uber.org_atomic_v1.12.0.txt": "93969c83f3b85e63128b4dbc6992ef6bbffc54bba40d38f253fb6657a37ebfb9",
+    "modules/go.yaml.in_yaml_v3_v3.0.5.txt": "b816f868ba85cb9e5cd6aa8e6065694d324d375a44b729e24ff3e0a021d0fb33",
+    "modules/golang.org_x_crypto_v0.58.0.txt": "148c1b17f2505e63ddc3597e37c25c6c1642e123f305fd2c497eabd18acdff52",
+    "modules/golang.org_x_image_v0.46.0.txt": "148c1b17f2505e63ddc3597e37c25c6c1642e123f305fd2c497eabd18acdff52",
+    "modules/golang.org_x_mod_v0.41.0.txt": "148c1b17f2505e63ddc3597e37c25c6c1642e123f305fd2c497eabd18acdff52",
+    "modules/golang.org_x_net_v0.60.0.txt": "148c1b17f2505e63ddc3597e37c25c6c1642e123f305fd2c497eabd18acdff52",
+    "modules/golang.org_x_sync_v0.24.0.txt": "148c1b17f2505e63ddc3597e37c25c6c1642e123f305fd2c497eabd18acdff52",
+    "modules/golang.org_x_sys_v0.49.0.txt": "148c1b17f2505e63ddc3597e37c25c6c1642e123f305fd2c497eabd18acdff52",
+    "modules/golang.org_x_term_v0.47.0.txt": "148c1b17f2505e63ddc3597e37c25c6c1642e123f305fd2c497eabd18acdff52",
+    "modules/golang.org_x_text_v0.43.0.txt": "148c1b17f2505e63ddc3597e37c25c6c1642e123f305fd2c497eabd18acdff52",
+    "modules/golang.org_x_tools_v0.51.0.txt": "fa4e6f1e29cf439519d99af0ecc83ce0dcf5afea036628b4a814a2be068be83f",
+    "modules/gopkg.in_check.v1_v0.0.0-20161208181325-20d25e280405.txt": "331615254134ad95c60fbc1b590038a09e9739a4ad26e38b03abdebc9b629204",
+    "modules/gopkg.in_yaml.v3_v3.0.1.txt": "b816f868ba85cb9e5cd6aa8e6065694d324d375a44b729e24ff3e0a021d0fb33",
+    "msgpack.txt": "1530185dd39cdde7cb2f786a7a5fcf8bc34368b6ae73c15e72bafe88fd80b9a2",
+    "mygo.txt": "f0b56f4ab53beb6e18c5e155219c2e2b6000b5475c0ae3ddb3af3894fd9349b4",
+    "phpserialize.txt": "4169cd3e772b2897c5ae506fe49c10dcd377dc7f5a535d58db029f9d2174fd56",
+    "purego.txt": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "tagparser.txt": "0f02aac22084ef463aa5f42f566feeec6aa4c99653519744a8c25cb079da5b5d",
+    "uber-atomic.txt": "edbb5a4d165ac69376c765b551c0662ff42bea87e1f1eda85f42ac90c34b09d0",
+    "x-crypto.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "x-image.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "x-sys.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "x-text.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "xxhash.txt": "f566a9f97bacdaf00d9f21dd991e81dc11201c4e016c86b470799429a1c9a79c",
+    "yaml.txt": "d18f6323b71b0b768bb5e9616e36da390fbd39369a81807cca352de4e4e6aa0b"
+  }
+}

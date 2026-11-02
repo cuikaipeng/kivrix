@@ -1,0 +1,146 @@
+--- LICENSE ---
+
+Copyright 2009 The Go Authors.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+   * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+   * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+   * Neither the name of Google LLC nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+--- copyright/copyright.go ---
+
+// Copyright 2020 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+// Package copyright checks that files have the correct copyright notices.
+package copyright
+
+import (
+	"go/ast"
+	"go/parser"
+	"go/token"
+	"io/fs"
+	"path/filepath"
+	"regexp"
+	"slices"
+	"strings"
+)
+
+// (used only by tests)
+func checkCopyright(dir string) ([]string, error) {
+	var files []string
+	err := filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			// Skip directories like ".git".
+			if strings.HasPrefix(d.Name(), ".") && d.Name() != "." && d.Name() != ".." {
+				return filepath.SkipDir
+			}
+			// Skip any directory that starts with an underscore, as the go
+			// command would.
+			if strings.HasPrefix(d.Name(), "_") {
+				return filepath.SkipDir
+			}
+			return nil
+		}
+		needsCopyright, err := checkFile(dir, path)
+		if err != nil {
+			return err
+		}
+		if needsCopyright {
+			files = append(files, path)
+		}
+		return nil
+	})
+	return files, err
+}
+
+var copyrightRe = regexp.MustCompile(`Copyright \d{4} The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.`)
+
+func checkFile(toolsDir, filename string) (bool, error) {
+	// Only check Go files.
+	if !strings.HasSuffix(filename, ".go") {
+		return false, nil
+	}
+	// Don't check testdata files.
+	normalized := strings.TrimPrefix(filepath.ToSlash(filename), filepath.ToSlash(toolsDir))
+	if strings.Contains(normalized, "/testdata/") {
+		return false, nil
+	}
+	// goyacc is the only file with a different copyright header.
+	if strings.HasSuffix(normalized, "cmd/goyacc/yacc.go") {
+		return false, nil
+	}
+
+	// Parse the file header only, with comments.
+	//
+	// Parsing only the header avoids spurious parse errors
+	// due to version skew when the gopls module relies on
+	// a newer version of Go than x/tools.
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, filename, nil, parser.PackageClauseOnly|parser.ParseComments)
+	if err != nil {
+		return false, err
+	}
+
+	// Don't require headers on generated files.
+	if ast.IsGenerated(f) {
+		return false, nil
+	}
+
+	// The copyright must appear before the package declaration.
+	return !slices.ContainsFunc(f.Comments, func(c *ast.CommentGroup) bool {
+		return copyrightRe.MatchString(c.Text())
+	}), nil
+}
+
+
+--- copyright/copyright_test.go ---
+
+// Copyright 2020 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+package copyright
+
+import (
+	"strings"
+	"testing"
+)
+
+func TestToolsCopyright(t *testing.T) {
+	files, err := checkCopyright("..")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(files) > 0 {
+		t.Errorf("The following files are missing copyright notices:\n%s", strings.Join(files, "\n"))
+	}
+}

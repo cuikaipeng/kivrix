@@ -1,0 +1,176 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  KIVRIX_TEST_ARTIFACTS: ${{ github.workspace }}/build/test-artifacts
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' && !startsWith(github.ref, 'refs/tags/') }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Validate release version and tag
+        run: python3 scripts/release.py check
+      - name: Check dependency licenses and bundled notices
+        run: python3 scripts/licenses.py
+      - name: Refuse to rebuild a published release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/release.py guard --tag "$GITHUB_REF_NAME"
+      - run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Unit, UI flow and security tests
+        run: |
+          mkdir -p build
+          CGO_ENABLED=0 go test -count=1 -coverprofile=build/coverage.out ./...
+          go tool cover -func=build/coverage.out > build/coverage.txt
+      - run: go vet ./...
+      - run: go tool mygo vet ./internal/app
+      - name: Check desktop targets
+        shell: bash
+        env:
+          CGO_ENABLED: "0"
+        run: |
+          for target in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64; do
+            echo "Building $target"
+            GOOS="${target%/*}" GOARCH="${target#*/}" \
+              go build -o "$RUNNER_TEMP/kivrix-check" ./cmd/kivrix
+          done
+      - name: Real Redis integration and race checks
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y redis-server
+          ./scripts/integration.sh
+          go test -race -count=1 ./...
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports
+          path: |
+            build/coverage.*
+            build/test-artifacts/
+          retention-days: 7
+
+  package:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
+    needs: test
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            platform: darwin/universal
+            artifact: kivrix-macos
+          - os: ubuntu-latest
+            platform: linux/amd64,linux/arm64
+            artifact: kivrix-linux
+          - os: windows-latest
+            platform: windows/amd64
+            artifact: kivrix-windows
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Package and verify installers
+        shell: bash
+        env:
+          PLATFORM: ${{ matrix.platform }}
+          MYGO_UPDATER_PRIVATE_KEY: ${{ secrets.MYGO_UPDATER_PRIVATE_KEY }}
+        run: ./scripts/package.sh
+      - name: Native macOS startup and cleanup smoke test
+        if: runner.os == 'macOS'
+        run: make test-native
+      - uses: actions/upload-artifact@v4
+        if: always() && runner.os == 'macOS'
+        with:
+          name: native-smoke-macos
+          path: build/test-artifacts/
+          if-no-files-found: ignore
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: build/release/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+  release:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: package
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: kivrix-*
+          merge-multiple: true
+      - name: Verify complete asset set and write checksums
+        run: python3 scripts/release.py verify artifacts
+      - name: Check updater against actual assets
+        env:
+          KIVRIX_RELEASE_ASSETS: ${{ github.workspace }}/artifacts
+        run: CGO_ENABLED=0 go test -count=1 ./internal/app -run '^TestPackagedUpdateAssets$'
+      - name: Recheck publication state
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/release.py guard --tag "$GITHUB_REF_NAME"
+      - name: Create or refresh draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/**/*.dmg
+            artifacts/**/*.exe
+            artifacts/**/*.deb
+            artifacts/**/*.tar.gz
+            artifacts/**/update-*.json
+            artifacts/**/install.sh
+            artifacts/SHA256SUMS
+          fail_on_unmatched_files: true
+          body: |
+            macOS builds use ad-hoc signing without Apple notarization. Windows installers are unsigned.
+            First launch may require explicit approval; some managed devices and Windows Smart App Control may block installation or launch.
+            See the [installation notes](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/docs/RELEASING.md#install-without-certificates) and use `SHA256SUMS` to verify downloads.
+          generate_release_notes: true
+          prerelease: false
+          draft: true

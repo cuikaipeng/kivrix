@@ -1,0 +1,8 @@
+# Keep source and shell entry points on LF, including Windows Git Bash builds.
+* text=auto eol=lf
+
+# Preserve reviewed notice bytes when checking out on Windows as well as Unix.
+LICENSE -text
+THIRD_PARTY_NOTICES.md -text
+third_party/licenses/** -text
+resources/licenses/** -text

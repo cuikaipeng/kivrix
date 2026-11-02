@@ -1,0 +1,16 @@
+{
+  "name": "Kivrix",
+  "identifier": "dev.kivrix.app",
+  "version": "0.1.0",
+  "icon": "resources/icon.png",
+  "main": "./cmd/kivrix",
+  "out": "build",
+  "linux": {
+    "webview": false
+  },
+  "updates": {
+    "publicKey": "cvsEmxM6oxAj71s8Z+vOxl+DgQaVXMtfO+KhXOlujyA=",
+    "github": "cuikaipeng/kivrix",
+    "deltas": 0
+  }
+}
