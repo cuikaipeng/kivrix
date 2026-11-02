@@ -228,11 +228,19 @@ def package(args):
             ignored.add(output.relative_to(ROOT).parts[0])
         shutil.copytree(ROOT, source, ignore=shutil.ignore_patterns(*ignored))
         languages = configure_package(cfg, source, targets, args.signed, args.sign)
-        (source / "mygo.json").write_text(json.dumps(cfg, indent=2) + "\n", encoding="utf-8")
-        command = ["go", "tool", "mygo", "build", "-platform", args.platform, "-o", str(output)]
-        if not args.signed:
-            command.append("-skip-notarize")
-        run(*command, cwd=source)
+        original_icon = cfg.get("icon", "")
+        for goos in dict.fromkeys(t.split("/")[0] for t in targets):
+            cfg["icon"] = original_icon
+            if goos == "darwin" and original_icon:
+                cfg["icon"] = ".macos-icon.png"
+                run("swift", str(source / "scripts/macos_icon.swift"),
+                    str(source / original_icon), str(source / cfg["icon"]))
+            (source / "mygo.json").write_text(json.dumps(cfg, indent=2) + "\n", encoding="utf-8")
+            platform = ",".join(t for t in targets if t.startswith(goos + "/"))
+            command = ["go", "tool", "mygo", "build", "-platform", platform, "-o", str(output)]
+            if not args.signed:
+                command.append("-skip-notarize")
+            run(*command, cwd=source)
         assets = {}
         for target in targets:
             directory = output / target.replace("/", "-")

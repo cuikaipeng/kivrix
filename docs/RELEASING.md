@@ -78,6 +78,10 @@ matching OS for native installers. `scripts/package.sh` uses the pinned
 MyGo version, builds from a temporary source snapshot, verifies the outputs,
 and stages the files to publish under `build/release/<os>/`.
 
+macOS packaging also uses Swift from Apple's Command Line Tools to render
+the app and DMG volume icon with rounded corners and transparent margins.
+The original logo stays unchanged; Windows and Linux use the original artwork.
+
 ```sh
 # No certificates needed: macOS defaults to a universal, ad-hoc-signed DMG.
 make package
