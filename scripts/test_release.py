@@ -99,6 +99,22 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             release.verify_assets(assets)
 
+    def test_macos_names_preserve_updater_compatibility(self):
+        original = self.root / "kivrix-0.2.0-darwin-universal.tar.gz"
+        original.write_bytes(b"signed archive fixture")
+        manifest = self.root / "update-darwin-universal.json"
+        metadata = {"version": "0.2.0", "url": "https://example.test/old.tar.gz",
+                    "size": original.stat().st_size, "signature": "unchanged-signature"}
+        manifest.write_text(json.dumps(metadata))
+
+        release.rename_macos_update(self.cfg, self.root)
+
+        self.assertEqual(release.asset_names("0.2.0", "darwin/universal"), ["kivrix-0.2.0-macOS.dmg"])
+        self.assertEqual((self.root / "kivrix-0.2.0-macOS.tar.gz").read_bytes(), b"signed archive fixture")
+        metadata["url"] = "https://github.com/example/kivrix/releases/download/v0.2.0/kivrix-0.2.0-macOS.tar.gz"
+        self.assertEqual(json.loads(manifest.read_text()), metadata)
+        self.assertFalse(original.exists())
+
     def test_update_key_required_and_must_match(self):
         with self.assertRaisesRegex(ValueError, "MYGO_UPDATER_PRIVATE_KEY"):
             release.require_update_key(self.cfg)

@@ -62,8 +62,12 @@ def guard(tag):
     require(release["draft"], f"{tag} is already published; use a new version instead of overwriting it")
 
 
+def platform_label(target):
+    return "macOS" if target == "darwin/universal" else target.replace("/", "-")
+
+
 def asset_names(version, target):
-    platform = target.replace("/", "-")
+    platform = platform_label(target)
     base = f"kivrix-{version}-{platform}"
     if target.startswith("darwin/"):
         return [base + ".dmg"]
@@ -73,8 +77,19 @@ def asset_names(version, target):
 
 
 def update_names(version, target):
-    platform = target.replace("/", "-")
-    return [f"kivrix-{version}-{platform}.tar.gz", f"update-{platform}.json"]
+    # Installed apps look up the original MyGo manifest name.
+    return [f"kivrix-{version}-{platform_label(target)}.tar.gz", f"update-{target.replace('/', '-')}.json"]
+
+
+def rename_macos_update(cfg, directory):
+    archive, manifest = update_names(cfg["version"], "darwin/universal")
+    original = directory / f"kivrix-{cfg['version']}-darwin-universal.tar.gz"
+    original.rename(directory / archive)
+    path = directory / manifest
+    metadata = json.loads(path.read_text(encoding="utf-8"))
+    metadata["url"] = f"https://github.com/{cfg['updates']['github']}/releases/download/v{cfg['version']}/{archive}"
+    # Only the archive bytes are signed; renaming preserves its signature.
+    path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
 
 
 def require_update_key(cfg):
@@ -245,6 +260,8 @@ def package(args):
         for target in targets:
             directory = output / target.replace("/", "-")
             paths = verify_package(cfg, target, directory, languages, args.signed)
+            if target == "darwin/universal":
+                rename_macos_update(cfg, directory)
             for filename, path in zip(asset_names(cfg["version"], target), paths):
                 if filename in assets:
                     require(path.read_bytes() == assets[filename].read_bytes(), f"Conflicting asset: {filename}")

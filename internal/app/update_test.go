@@ -321,7 +321,11 @@ func TestPackagedUpdateAssets(t *testing.T) {
 			if err := json.Unmarshal(data, &m); err != nil {
 				t.Fatal(err)
 			}
-			name := "kivrix-" + appVersion + "-" + target + ".tar.gz"
+			platform := target
+			if target == "darwin-universal" {
+				platform = "macOS"
+			}
+			name := "kivrix-" + appVersion + "-" + platform + ".tar.gz"
 			url := "https://github.com/" + cfg.Updates.GitHub + "/releases/download/v" + appVersion + "/" + name
 			if m.Version != appVersion || m.URL != url {
 				t.Fatalf("incorrect manifest: %+v", m)

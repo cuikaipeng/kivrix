@@ -166,16 +166,16 @@ Keep private keys, certificates and passwords outside the repository.
 
 ## Published assets and updates
 
-For version `0.1.0`, the complete release contains:
+For example, a new `0.1.1` release contains:
 
-- `kivrix-0.1.0-darwin-universal.dmg`
-- `kivrix-0.1.0-windows-amd64.exe`
-- `kivrix-0.1.0-darwin-universal.tar.gz`
-- `kivrix-0.1.0-windows-amd64.tar.gz`
-- `kivrix-0.1.0-linux-amd64.deb`
-- `kivrix-0.1.0-linux-arm64.deb`
-- `kivrix-0.1.0-linux-amd64.tar.gz`
-- `kivrix-0.1.0-linux-arm64.tar.gz`
+- `kivrix-0.1.1-macOS.dmg`
+- `kivrix-0.1.1-windows-amd64.exe`
+- `kivrix-0.1.1-macOS.tar.gz`
+- `kivrix-0.1.1-windows-amd64.tar.gz`
+- `kivrix-0.1.1-linux-amd64.deb`
+- `kivrix-0.1.1-linux-arm64.deb`
+- `kivrix-0.1.1-linux-amd64.tar.gz`
+- `kivrix-0.1.1-linux-arm64.tar.gz`
 - `install.sh`
 - `update-darwin-universal.json`
 - `update-windows-amd64.json`
@@ -183,9 +183,14 @@ For version `0.1.0`, the complete release contains:
 - `update-linux-arm64.json`
 - `SHA256SUMS`
 
+The `macOS` packages support both Apple Silicon and Intel Macs. The updater's
+`update-darwin-universal.json` name stays unchanged for installed apps; its URL
+points to the renamed archive. Renaming leaves the signed archive bytes intact.
+The published `v0.1.0` assets keep their original names.
+
 `install.sh` is a separate download, shared by both Linux architectures.
 Download it alongside the matching tarball and run
-`sh install.sh ./kivrix-0.1.0-linux-amd64.tar.gz` (or the arm64 tarball).
+`sh install.sh ./kivrix-0.1.1-linux-amd64.tar.gz` (or the arm64 tarball).
 DEB users can install with their package manager. Native Linux packages
 require GTK, without pulling in WebKitGTK.
 
