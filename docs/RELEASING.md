@@ -45,6 +45,20 @@ make test race vet integration
 Integration tests require `redis-server`, `redis-cli` and Python 3 and start disposable
 standalone, Sentinel and Cluster instances. They use the normal Go cache.
 
+## Release notes
+
+Every release must have a complete **English** section first, followed by an
+equivalent **简体中文** section. Both sections include the version's changes,
+downloads and first-launch instructions, with the same facts and links.
+Keep each language together rather than alternating languages paragraph by paragraph.
+
+Actions creates a bilingual draft with versioned download links and installation
+instructions. Before publishing, fill in **What's new** and **本次更新**, remove
+the template comments, and check that both sections describe the same changes.
+GitHub's automatic release notes are disabled so an English-only changelog is
+not appended after the Chinese section. When using GitHub-generated changes as
+source material, summarize them in both language sections before publication.
+
 ## Update signing key
 
 In-app updates use an Ed25519 key pair. This is free and separate from Apple

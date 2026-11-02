@@ -155,6 +155,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/release.py guard --tag "$GITHUB_REF_NAME"
+      - name: Read release version
+        id: release_version
+        run: |
+          python3 - <<'PY'
+          import json, os
+          with open("mygo.json", encoding="utf-8") as source, open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              print("version=" + json.load(source)["version"], file=output)
+          PY
       - name: Create or refresh draft release
         uses: softprops/action-gh-release@v2
         with:
@@ -168,9 +176,73 @@ jobs:
             artifacts/SHA256SUMS
           fail_on_unmatched_files: true
           body: |
+            **English**
+
+            Kivrix ${{ github.ref_name }} — a native Redis desktop client for macOS, Windows, and Linux.
+
+            **What's new**
+
+            <!-- Before publishing, describe this version's changes in English and add equivalent Chinese notes below. -->
+
+            **Downloads**
+
+            | Platform | Package |
+            | --- | --- |
+            | macOS — Apple Silicon and Intel | [Universal DMG](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-macOS.dmg) |
+            | Windows — x64 | [EXE installer](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-windows-amd64.exe) |
+            | Linux — x64 | [DEB](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-linux-amd64.deb) · [tar.gz](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-linux-amd64.tar.gz) |
+            | Linux — ARM64 | [DEB](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-linux-arm64.deb) · [tar.gz](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-linux-arm64.tar.gz) |
+
+            For Linux tarball installations, download [install.sh](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/install.sh) alongside the matching archive and follow the [installation instructions](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/docs/RELEASING.md#published-assets-and-updates).
+            Use [SHA256SUMS](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/SHA256SUMS) to verify downloads. Files named `update-*.json` are used by the in-app updater.
+
+            **First launch**
+
             macOS builds use ad-hoc signing without Apple notarization. Windows installers are unsigned.
             First launch may require explicit approval; some managed devices and Windows Smart App Control may block installation or launch.
-            See the [installation notes](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/docs/RELEASING.md#install-without-certificates) and use `SHA256SUMS` to verify downloads.
-          generate_release_notes: true
+
+            On macOS, drag `Kivrix.app` into **Applications** first. If macOS blocks the app and you trust the download, run this command in Terminal:
+
+            ```sh
+            xattr -dr com.apple.quarantine "/Applications/Kivrix.app"
+            ```
+
+            See [Installation and signing](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/docs/RELEASING.md#install-without-certificates), the [Feature reference](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/docs/FEATURES.md), and [Feature coverage and known gaps](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/PARITY.md).
+
+            ---
+
+            **简体中文**
+
+            Kivrix ${{ github.ref_name }} — 支持 macOS、Windows 和 Linux 的原生 Redis 桌面客户端。
+
+            **本次更新**
+
+            <!-- 发布前补齐本版本的中文更新内容，与上方英文说明保持一致。 -->
+
+            **下载**
+
+            | 系统 | 安装包 |
+            | --- | --- |
+            | macOS — Apple Silicon 和 Intel | [通用 DMG](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-macOS.dmg) |
+            | Windows — x64 | [EXE 安装包](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-windows-amd64.exe) |
+            | Linux — x64 | [DEB](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-linux-amd64.deb) · [tar.gz](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-linux-amd64.tar.gz) |
+            | Linux — ARM64 | [DEB](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-linux-arm64.deb) · [tar.gz](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/kivrix-${{ steps.release_version.outputs.version }}-linux-arm64.tar.gz) |
+
+            Linux tar.gz 用户请同时下载 [install.sh](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/install.sh)，按[安装说明](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/docs/RELEASING.md#published-assets-and-updates)操作。
+            [SHA256SUMS](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/SHA256SUMS) 用于校验下载文件，`update-*.json` 用于应用内更新。
+
+            **首次启动**
+
+            macOS 包使用 ad-hoc 签名，未经 Apple 公证；Windows 安装程序未签名。
+            首次启动可能需要手动批准。企业设备策略或 Windows Smart App Control 可能阻止安装或运行。
+
+            macOS：先将 `Kivrix.app` 拖入**应用程序**。若确认下载来源可信但系统仍拦截，可在终端执行：
+
+            ```sh
+            xattr -dr com.apple.quarantine "/Applications/Kivrix.app"
+            ```
+
+            更多信息见[安装与签名说明](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/docs/RELEASING.md#install-without-certificates)、[功能说明](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/docs/FEATURES.md)和[功能覆盖与已知差距](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/PARITY.md)。
+          generate_release_notes: false
           prerelease: false
           draft: true

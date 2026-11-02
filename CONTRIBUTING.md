@@ -38,6 +38,8 @@ to submit it. Sign off commits with `git commit -s` to certify the
 `dev` is the default development branch. Base changes on `dev` and target it
 in feature pull requests. Prepare releases by merging `dev` into `main`, then
 tagging the release commit as described in [Releasing](docs/RELEASING.md).
+Release notes must contain a complete English section followed by an equivalent
+Simplified Chinese section; see [Release notes](docs/RELEASING.md#release-notes).
 
 ```sh
 go tool mygo dev
